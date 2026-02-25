@@ -72,3 +72,6 @@ wandb/
 *.pth
 checkpoints/*
 !checkpoints/.gitkeep
+
+# === 本地网页文件 ===
+*.html
