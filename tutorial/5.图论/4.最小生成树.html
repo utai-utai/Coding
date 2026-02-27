@@ -2347,6 +2347,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#题目-1584连接所有点的最小费用" id="toc-题目-1584连接所有点的最小费用" class="nav-link active" data-scroll-target="#题目-1584连接所有点的最小费用">📝 题目 1584：连接所有点的最小费用</a></li>
+  <li><a href="#题目-1135最低成本联通所有城市" id="toc-题目-1135最低成本联通所有城市" class="nav-link" data-scroll-target="#题目-1135最低成本联通所有城市">📝 题目 1135：最低成本联通所有城市</a></li>
   <li><a href="#题目-1168水资源分配优化" id="toc-题目-1168水资源分配优化" class="nav-link" data-scroll-target="#题目-1168水资源分配优化">📝 题目 1168：水资源分配优化</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="12.最小生成树.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -2474,10 +2475,10 @@ window.Quarto = {
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>                    heapq.heappush(min_heap, (next_dist, next_node))</span>
 <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="da0c75f1eff5a782" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T05:49:54.124904Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T05:49:54.089477Z&quot;}}" data-execution_count="10">
+<div id="da0c75f1eff5a782" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T11:23:28.619631Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T11:23:28.590384Z&quot;}}" data-execution_count="27">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_1584(func):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_1584(func1, func2):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    test_cases <span class="op">=</span> [</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;常规示例 1&quot;</span>, <span class="st">&quot;points&quot;</span>: [[<span class="dv">0</span>,<span class="dv">0</span>],[<span class="dv">2</span>,<span class="dv">2</span>],[<span class="dv">3</span>,<span class="dv">10</span>],[<span class="dv">5</span>,<span class="dv">2</span>],[<span class="dv">7</span>,<span class="dv">0</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">20</span>},</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;常规示例 2 (含负数)&quot;</span>, <span class="st">&quot;points&quot;</span>: [[<span class="dv">3</span>,<span class="dv">12</span>],[<span class="op">-</span><span class="dv">2</span>,<span class="dv">5</span>],[<span class="op">-</span><span class="dv">4</span>,<span class="dv">1</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">18</span>},</span>
@@ -2492,37 +2493,38 @@ window.Quarto = {
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    ]</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    passed <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;ID&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;结果&#39;</span><span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;预期&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;实际&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;描述&#39;</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;ID&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;结果&#39;</span><span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;预期&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;Kruskal&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;Prim&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;描述&#39;</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tc <span class="kw">in</span> <span class="bu">enumerate</span>(test_cases):</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        actual <span class="op">=</span> func(tc[<span class="st">&quot;points&quot;</span>])</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        is_pass <span class="op">=</span> actual <span class="op">==</span> tc[<span class="st">&quot;expected&quot;</span>]</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">&quot;✅ PASS&quot;</span> <span class="cf">if</span> is_pass <span class="cf">else</span> <span class="st">&quot;❌ FAIL&quot;</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_pass:</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            passed <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>status<span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;expected&#39;</span>]<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>actual<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;desc&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;测试总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 运行测试</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>test_1584(Solution1584().minCostConnectPoints_Prim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        actual_1 <span class="op">=</span> func1(tc[<span class="st">&quot;points&quot;</span>])</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        actual_2 <span class="op">=</span> func2(tc[<span class="st">&quot;points&quot;</span>])</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        is_pass <span class="op">=</span> actual_1 <span class="op">==</span> actual_2 <span class="op">==</span> tc[<span class="st">&quot;expected&quot;</span>]</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">&quot;✅ PASS&quot;</span> <span class="cf">if</span> is_pass <span class="cf">else</span> <span class="st">&quot;❌ FAIL&quot;</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_pass:</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            passed <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>status<span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;expected&#39;</span>]<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>actual_1<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>actual_2<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;desc&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;测试总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 运行测试</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>test_1584(Solution1584().minCostConnectPoints_Kruskal, Solution1584().minCostConnectPoints_Prim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>ID   | 结果     | 预期   | 实际   | 描述
+<pre><code>ID   | 结果     | 预期   | Kruskal | Prim | 描述
 -----------------------------------------------------------------
-1    | ✅ PASS | 20   | 20   | 常规示例 1
-2    | ✅ PASS | 18   | 18   | 常规示例 2 (含负数)
-3    | ✅ PASS | 0    | 0    | 极限: 只有 1 个点
-4    | ✅ PASS | 20   | 20   | 极限: 只有 2 个点
-5    | ✅ PASS | 6    | 6    | 四个点构成正方形
-6    | ✅ PASS | 6    | 6    | 所有点在同一水平线上
-7    | ✅ PASS | 12   | 12   | 所有点在同一垂直线上
-8    | ✅ PASS | 4    | 4    | 星型辐射 (中心点连所有点最优)
-9    | ✅ PASS | 2    | 2    | 存在坐标完全重叠的点
-10   | ✅ PASS | 4000 | 4000 | 大跨度坐标
+1    | ✅ PASS | 20   | 20   | 20   | 常规示例 1
+2    | ✅ PASS | 18   | 18   | 18   | 常规示例 2 (含负数)
+3    | ✅ PASS | 0    | 0    | 0    | 极限: 只有 1 个点
+4    | ✅ PASS | 20   | 20   | 20   | 极限: 只有 2 个点
+5    | ✅ PASS | 6    | 6    | 6    | 四个点构成正方形
+6    | ✅ PASS | 6    | 6    | 6    | 所有点在同一水平线上
+7    | ✅ PASS | 12   | 12   | 12   | 所有点在同一垂直线上
+8    | ✅ PASS | 4    | 4    | 4    | 星型辐射 (中心点连所有点最优)
+9    | ✅ PASS | 2    | 2    | 2    | 存在坐标完全重叠的点
+10   | ✅ PASS | 4000 | 4000 | 4000 | 大跨度坐标
 -----------------------------------------------------------------
 测试总结: 通过 10/10</code></pre>
 </div>
@@ -2540,11 +2542,25 @@ window.Quarto = {
 <p>这道题没有直接给你“边”，而是给了你“点”。所以我们的第一步是<strong>建图</strong>：算出任意两个点之间的曼哈顿距离。如果有 <span class="math inline">\(N\)</span> 个点，就会有 <span class="math inline">\(\frac{N(N-1)}{2}\)</span> 条边。</p>
 <section id="玩法一kruskal-算法以边为核心配合并查集" class="level4">
 <h4 class="anchored" data-anchor-id="玩法一kruskal-算法以边为核心配合并查集">⚔️ 玩法一：Kruskal 算法（以“边”为核心，配合并查集）</h4>
-<p>既然你懂并查集，Kruskal 对你来说只有三步： 1. <strong>收集所有边</strong>：把所有两点之间的边提取出来，存成 <code>(距离, 点A, 点B)</code> 的格式。 2. <strong>按距离从小到大排序</strong>：贪心思想，越便宜的边我越先考虑。 3. <strong>并查集连线</strong>：遍历排好序的边，如果 点A 和 点B <strong>不在同一个集合</strong>（即连上不会形成环），就选这条边！把它俩 <code>union</code> 起来，费用加上这条边的距离。 <em>什么时候结束？</em> 当你成功连了 <code>N - 1</code> 条边时，所有点必定连通，直接提前 <code>break</code>！</p>
+<ol type="1">
+<li><strong>收集所有边</strong>：把所有两点之间的边提取出来，存成 <code>(距离, 点A, 点B)</code> 的格式。</li>
+<li><strong>按距离从小到大排序</strong>：贪心思想，越便宜的边我越先考虑。</li>
+<li><strong>并查集连线</strong>：遍历排好序的边，如果 点A 和 点B <strong>不在同一个集合</strong>（即连上不会形成环），就选这条边！把它俩 <code>union</code> 起来，费用加上这条边的距离。 <em>什么时候结束？</em> 当你成功连了 <code>N - 1</code> 条边时，所有点必定连通，直接提前 <code>break</code>！</li>
+</ol>
 </section>
 <section id="玩法二prim-算法以点为核心配合最小堆" class="level4">
 <h4 class="anchored" data-anchor-id="玩法二prim-算法以点为核心配合最小堆">🛡️ 玩法二：Prim 算法（以“点”为核心，配合最小堆）</h4>
-<p>Prim 的视角变了，它像是一个不断扩张的“感染区”。 1. <strong>随便挑一个起点</strong>（比如点 0），把它标记为“已在树中”。 2. 把这个点连出去的<strong>所有边</strong> <code>(距离, 目标点)</code> 扔进一个<strong>最小堆 (Min-Heap / <code>heapq</code>)</strong> 里。 3. 只要堆不为空，就弹出堆顶（当前能摸到的最便宜的边）： - 如果这个边指向的“目标点”<strong>已经在树中</strong>了，说明是废边（会形成环），直接 <code>continue</code> 丢弃。 - 如果“目标点”不在树中，太好了！费用加上这段距离，把这个目标点标记为“已在树中”。 - 接着，把这个新加入的目标点连出去的所有边，也通通扔进最小堆里，继续扩张！ 4. 当所有点都被标记为“已在树中”时，扩张结束。</p>
+<ol type="1">
+<li><strong>随便挑一个起点</strong>（比如点 0），把它标记为“已在树中”。</li>
+<li>把这个点连出去的<strong>所有边</strong> <code>(距离, 目标点)</code> 扔进一个<strong>最小堆 (Min-Heap / <code>heapq</code>)</strong> 里。</li>
+<li>只要堆不为空，就弹出堆顶（当前能摸到的最便宜的边）：
+<ul>
+<li>如果这个边指向的“目标点”<strong>已经在树中</strong>了，说明是废边（会形成环），直接 <code>continue</code> 丢弃。</li>
+<li>如果“目标点”不在树中，太好了！费用加上这段距离，把这个目标点标记为“已在树中”。</li>
+<li>接着，把这个新加入的目标点连出去的所有边，也通通扔进最小堆里，继续扩张！</li>
+</ul></li>
+<li>当所有点都被标记为“已在树中”时，扩张结束。</li>
+</ol>
 </section>
 </div>
 </div>
@@ -2562,6 +2578,178 @@ window.Quarto = {
 <li><strong>点数 <span class="math inline">\(V\)</span></strong>：<code>len(points)</code>，<strong>边数 <span class="math inline">\(E\)</span></strong>：<span class="math inline">\(O(V^2)\)</span>（完全图）。</li>
 <li><strong>Kruskal</strong>：重点在排序，时间复杂度 <span class="math inline">\(O(E \log E)\)</span>。适合边少的稀疏图。</li>
 <li><strong>Prim</strong>：重点在堆操作，时间复杂度 <span class="math inline">\(O(E \log V)\)</span>。在这道题（边极多的稠密图）中，Prim 理论上表现更好，但 Python 中 Kruskal 的 <code>list.sort()</code> 底层优化极佳，两者速度都很出色。</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="题目-1135最低成本联通所有城市" class="level2">
+<h2 class="anchored" data-anchor-id="题目-1135最低成本联通所有城市">📝 题目 1135：最低成本联通所有城市</h2>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>📖 题目描述
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>想象一下你是一名城市规划师，有 <code>n</code> 座城市，编号从 <code>1</code> 到 <code>n</code>。</p>
+<p>给你一个 <code>connections</code> 数组，其中 <code>connections[i] = [city1, city2, cost]</code> 表示将 <code>city1</code> 和 <code>city2</code> 连接所要的成本（连接是双向的）。</p>
+<p>请你返回连接所有城市的最少成本，使得任意两座城市之间都有一条路径相连。 <strong>如果无法连接所有城市（即存在无法到达的孤岛），请返回 <code>-1</code>。</strong></p>
+<p><strong>输入输出示例</strong>：</p>
+<ul>
+<li><strong>示例 1</strong>：
+<ul>
+<li><strong>输入</strong>：<code>n = 3</code>, <code>connections = [[1,2,5],[1,3,6],[2,3,1]]</code></li>
+<li><strong>输出</strong>：<code>6</code></li>
+<li><strong>解释</strong>： 选出 [1,2,5] 和 [2,3,1] 两条边，成本为 5 + 1 = 6。</li>
+</ul></li>
+<li><strong>示例 2</strong>：
+<ul>
+<li><strong>输入</strong>：<code>n = 4</code>, <code>connections = [[1,2,3],[3,4,4]]</code></li>
+<li><strong>输出</strong>：<code>-1</code></li>
+<li><strong>解释</strong>： 城市 1, 2 连通，城市 3, 4 连通。但是没有任何线缆能把这两个阵营连起来，所以无法连通所有城市，返回 -1。</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="a793dce7ddfb0d22" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T11:58:22.479802Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T11:58:22.459188Z&quot;}}" data-execution_count="44">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution1135:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> minimumCost_Kruskal(<span class="va">self</span>, n: <span class="bu">int</span>, connections: List[List[<span class="bu">int</span>]]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        uf <span class="op">=</span> UnionFind(n)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        edges <span class="op">=</span> []</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> connection <span class="kw">in</span> connections:  <span class="co"># 收集所有边，转换为 (费用, 城市1, 城市2) 以便排序</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            edges.append((connection[<span class="dv">2</span>], connection[<span class="dv">0</span>], connection[<span class="dv">1</span>]))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        edges.sort()  <span class="co"># 贪心：按费用从小到大排序</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        res, edges_added <span class="op">=</span> <span class="dv">0</span>, <span class="dv">0</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> dist, i, j <span class="kw">in</span> edges:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> uf.union(i <span class="op">-</span> <span class="dv">1</span>, j <span class="op">-</span> <span class="dv">1</span>):  <span class="co"># 偏移操作：题目城市是 1~n，并查集是 0~n-1</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                res <span class="op">+=</span> dist</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                edges_added <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> edges_added <span class="op">==</span> n <span class="op">-</span> <span class="dv">1</span>:  <span class="co"># n 个城市只需要 n-1 条边</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">break</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res <span class="cf">if</span> edges_added <span class="op">==</span> n <span class="op">-</span> <span class="dv">1</span> <span class="cf">else</span> <span class="op">-</span><span class="dv">1</span>  <span class="co"># 如果最终凑够了 n-1 条边，说明全连通；否则说明有孤岛，返回 -1</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> minimumCost_Prim(<span class="va">self</span>, n: <span class="bu">int</span>, connections: List[List[<span class="bu">int</span>]]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        adj <span class="op">=</span> {i: [] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)}  <span class="co"># 建图：初始化 1 到 n 的邻接表</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> connection <span class="kw">in</span> connections:</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>            adj[connection[<span class="dv">0</span>]].append((connection[<span class="dv">2</span>], connection[<span class="dv">1</span>]))</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>            adj[connection[<span class="dv">1</span>]].append((connection[<span class="dv">2</span>], connection[<span class="dv">0</span>]))</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        visited <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        min_heap <span class="op">=</span> [(<span class="dv">0</span>, <span class="dv">1</span>)]  <span class="co"># 随便挑个城市（比如 1），到达它自己的费用是 0</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> min_heap <span class="kw">and</span> <span class="bu">len</span>(visited) <span class="op">&lt;</span> n:</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>            dist, curr_node <span class="op">=</span> heapq.heappop(min_heap)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> curr_node <span class="kw">in</span> visited:  <span class="co"># 遇到废边，直接跳过</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>            res <span class="op">+=</span> dist</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>            visited.add(curr_node)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> next_dist, next_node <span class="kw">in</span> adj[curr_node]:  <span class="co"># 把新城市能连出去的、尚未占领的路，加入扩张候选堆</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>                heapq.heappush(min_heap, (next_dist, next_node))</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res <span class="cf">if</span> <span class="bu">len</span>(visited) <span class="op">==</span> n <span class="cf">else</span> <span class="op">-</span><span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="108b27b25d1c4090" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T11:58:22.718733Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T11:58:22.696033Z&quot;}}" data-execution_count="45">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_1135(func1, func2):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    test_cases <span class="op">=</span> [</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;示例 1: 常规连通&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">3</span>, <span class="st">&quot;connections&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>],[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">6</span>],[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">6</span>},</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;示例 2: 明显孤岛&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">4</span>, <span class="st">&quot;connections&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],[<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>]], <span class="st">&quot;expected&quot;</span>: <span class="op">-</span><span class="dv">1</span>},</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;极限: 只有1个城市&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">1</span>, <span class="st">&quot;connections&quot;</span>: [], <span class="st">&quot;expected&quot;</span>: <span class="dv">0</span>},</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;只有2个城市连通&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;connections&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">100</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">100</span>},</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;只有2个城市但不连通&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;connections&quot;</span>: [], <span class="st">&quot;expected&quot;</span>: <span class="op">-</span><span class="dv">1</span>},</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;星型连通 (中心发散)&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">4</span>, <span class="st">&quot;connections&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>],[<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">6</span>},</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;包含平行边 (同样的两点有不同报价)&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">3</span>, <span class="st">&quot;connections&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">10</span>],[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">6</span>}, <span class="co"># 取 1 和 5</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;隐藏的孤岛 (连通分量内部成环)&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">4</span>, <span class="st">&quot;connections&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>],[<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>]], <span class="st">&quot;expected&quot;</span>: <span class="op">-</span><span class="dv">1</span>}, <span class="co"># 4 号是孤儿</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;直线长距离连通&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">5</span>, <span class="st">&quot;connections&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>],[<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">1</span>],[<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">1</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">4</span>},</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;多余的极长边&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">3</span>, <span class="st">&quot;connections&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1000</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">2</span>},</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;两个独立的三角形&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">6</span>, <span class="st">&quot;connections&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>],[<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>],[<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">1</span>],[<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">1</span>],[<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">1</span>]], <span class="st">&quot;expected&quot;</span>: <span class="op">-</span><span class="dv">1</span>}</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    passed <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;ID&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;结果&#39;</span><span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;预期&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;Kruskal&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;Prim&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;描述&#39;</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tc <span class="kw">in</span> <span class="bu">enumerate</span>(test_cases):</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        actual_1 <span class="op">=</span> func1(tc[<span class="st">&quot;n&quot;</span>], tc[<span class="st">&quot;connections&quot;</span>])</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        actual_2 <span class="op">=</span> func2(tc[<span class="st">&quot;n&quot;</span>], tc[<span class="st">&quot;connections&quot;</span>])</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        is_pass <span class="op">=</span> actual_1 <span class="op">==</span> actual_2 <span class="op">==</span> tc[<span class="st">&quot;expected&quot;</span>]</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">&quot;✅ PASS&quot;</span> <span class="cf">if</span> is_pass <span class="cf">else</span> <span class="st">&quot;❌ FAIL&quot;</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_pass:</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            passed <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>status<span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;expected&#39;</span>]<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>actual_1<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>actual_2<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;desc&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;测试总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 运行测试</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>test_1135(Solution1135().minimumCost_Kruskal, Solution1135().minimumCost_Prim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>ID   | 结果     | 预期   | Kruskal | Prim | 描述
+-----------------------------------------------------------------
+1    | ✅ PASS | 6    | 6    | 6    | 示例 1: 常规连通
+2    | ✅ PASS | -1   | -1   | -1   | 示例 2: 明显孤岛
+3    | ✅ PASS | 0    | 0    | 0    | 极限: 只有1个城市
+4    | ✅ PASS | 100  | 100  | 100  | 只有2个城市连通
+5    | ✅ PASS | -1   | -1   | -1   | 只有2个城市但不连通
+6    | ✅ PASS | 6    | 6    | 6    | 星型连通 (中心发散)
+7    | ✅ PASS | 6    | 6    | 6    | 包含平行边 (同样的两点有不同报价)
+8    | ✅ PASS | -1   | -1   | -1   | 隐藏的孤岛 (连通分量内部成环)
+9    | ✅ PASS | 4    | 4    | 4    | 直线长距离连通
+10   | ✅ PASS | 2    | 2    | 2    | 多余的极长边
+11   | ✅ PASS | -1   | -1   | -1   | 两个独立的三角形
+-----------------------------------------------------------------
+测试总结: 通过 11/11</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>💡 思路讲解
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>这道题是极其纯粹的最小生成树（MST）模板题，没有任何花哨的建图魔法。核心考验点只有一个：<strong>如何精准判断出图里存在“永远连不上”的孤岛城市？</strong></p>
+<section id="玩法一kruskal-算法-贪心排序-并查集" class="level4">
+<h4 class="anchored" data-anchor-id="玩法一kruskal-算法-贪心排序-并查集">⚔️ 玩法一：Kruskal 算法 (贪心排序 + 并查集)</h4>
+<p>Kruskal 像是一个精打细算的包工头，把所有修路方案按价格从低到高排好，然后挨个尝试：</p>
+<ol type="1">
+<li><strong>收集与排序</strong>：把 <code>connections</code> 里的边提取成 <code>(cost, u, v)</code> 并 <code>sort()</code>。</li>
+<li><strong>巧妙避开索引坑</strong>：题目给的城市是 <code>1</code> 到 <code>n</code>，而常规初始化的 <code>UnionFind(n)</code> 是 <code>0</code> 到 <code>n-1</code>。在合并时使用 <code>uf.union(u - 1, v - 1)</code> 完美对齐索引！</li>
+<li><strong>孤岛判别法（核心）</strong>：<code>n</code> 个城市完全连通需要且仅需要 <code>n - 1</code> 条边。我们维护一个 <code>edges_added</code> 计数器。如果遍历完所有的边，计数器依然 <code>&lt; n - 1</code>，说明即使把能修的路全修了也连不通，直接返回 <code>-1</code>。</li>
+</ol>
+</section>
+<section id="玩法二prim-算法-优先队列-帝国扩张" class="level4">
+<h4 class="anchored" data-anchor-id="玩法二prim-算法-优先队列-帝国扩张">🛡️ 玩法二：Prim 算法 (优先队列 + 帝国扩张)</h4>
+<p>Prim 像是一个从首都（比如城市 <code>1</code>）向外不断吞并领土的帝国：</p>
+<ol type="1">
+<li><strong>精准建图</strong>：由于城市从 <code>1</code> 开始，构建邻接表必须严格使用 <code>adj = {i: [] for i in range(1, n + 1)}</code>。</li>
+<li><strong>带资进组</strong>：将起点 <code>(0, 1)</code>（花费 0 元到达城市 1）丢进最小堆 <code>min_heap</code>。</li>
+<li><strong>孤岛判别法（核心）</strong>：只要堆不为空且版图还没统一（<code>len(visited) &lt; n</code>），就持续弹出最便宜的路并占领新城市。 <em>如果堆都空了（能摸到的路全修完了），循环被迫终止，但此时 <code>len(visited)</code> 依然 <code>&lt; n</code>，说明剩下的城市是大海中的孤岛，直接返回 <code>-1</code>！</em></li>
+</ol>
+</section>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>💡 复杂度分析
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>假设有 <span class="math inline">\(V\)</span> 个城市（点），<span class="math inline">\(E\)</span> 条连接方案（边）。</p>
+<ul>
+<li><strong>Kruskal</strong>：时间 <span class="math inline">\(O(E \log E)\)</span>（瓶颈在排序），空间 <span class="math inline">\(O(V + E)\)</span>。</li>
+<li><strong>Prim</strong>：时间 <span class="math inline">\(O(E \log V)\)</span>（堆操作），空间 <span class="math inline">\(O(V + E)\)</span>。</li>
 </ul>
 </div>
 </div>
@@ -2604,8 +2792,102 @@ window.Quarto = {
 </ul>
 </div>
 </div>
-<div id="fdcee170a19d0f6f" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fdcee170a19d0f6f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T11:13:25.553682Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T11:13:25.534336Z&quot;}}" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution1168:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> minCostToSupplyWater_Kruskal(<span class="va">self</span>, n: <span class="bu">int</span>, wells: List[<span class="bu">int</span>], pipes: List[List[<span class="bu">int</span>]]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        uf <span class="op">=</span> UnionFind(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        edges <span class="op">=</span> []</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):  <span class="co"># 虚拟节点 0 到各个房子的打井边</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            edges.append((wells[i <span class="op">-</span> <span class="dv">1</span>], <span class="dv">0</span>, i))</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> pipe <span class="kw">in</span> pipes:  <span class="co"># 房子之间的管道边，统一元组格式为 (cost, u, v)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            edges.append((pipe[<span class="dv">2</span>], pipe[<span class="dv">0</span>], pipe[<span class="dv">1</span>]))</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        edges.sort()  <span class="co"># 贪心排序</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        res, edges_added <span class="op">=</span> <span class="dv">0</span>, <span class="dv">0</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> dist, i, j <span class="kw">in</span> edges:</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> uf.union(i, j):</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                res <span class="op">+=</span> dist</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                edges_added <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> edges_added <span class="op">==</span> n:  <span class="co"># N+1 个点需要 N 条边</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">break</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> minCostToSupplyWater_Prim(<span class="va">self</span>, n: <span class="bu">int</span>, wells: List[<span class="bu">int</span>], pipes: List[List[<span class="bu">int</span>]]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        adj <span class="op">=</span> {i: [] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">+</span> <span class="dv">1</span>)}</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):  <span class="co"># 虚拟节点 0 到各个房子的打井边</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>            adj[<span class="dv">0</span>].append((wells[i <span class="op">-</span> <span class="dv">1</span>], i))</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            adj[i].append((wells[i <span class="op">-</span> <span class="dv">1</span>], <span class="dv">0</span>))</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> pipe <span class="kw">in</span> pipes:  <span class="co"># 房子之间的管道双向边</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>            adj[pipe[<span class="dv">0</span>]].append((pipe[<span class="dv">2</span>], pipe[<span class="dv">1</span>]))</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>            adj[pipe[<span class="dv">1</span>]].append((pipe[<span class="dv">2</span>], pipe[<span class="dv">0</span>]))</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        visited <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        min_heap <span class="op">=</span> [(<span class="dv">0</span>, <span class="dv">0</span>)]  <span class="co"># (距离, 节点)</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="bu">len</span>(visited) <span class="op">&lt;</span> n <span class="op">+</span> <span class="dv">1</span>:</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>            dist, curr_node <span class="op">=</span> heapq.heappop(min_heap)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> curr_node <span class="kw">in</span> visited:</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>            visited.add(curr_node)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>            res <span class="op">+=</span> dist</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> next_dist, next_node <span class="kw">in</span> adj[curr_node]:</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> next_node <span class="kw">not</span> <span class="kw">in</span> visited:  <span class="co"># 性能优化：不在 visited 里的才扔进堆</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>                    heapq.heappush(min_heap, (next_dist, next_node))</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="953d4fb8e315aeb3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T11:23:45.619567Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T11:23:45.590219Z&quot;}}" data-execution_count="28">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_1168(func1, func2):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    test_cases <span class="op">=</span> [</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;示例 1: 1打井, 连2连3&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">3</span>, <span class="st">&quot;wells&quot;</span>: [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>], <span class="st">&quot;pipes&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">3</span>},</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;示例 2: 方案等价&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;wells&quot;</span>: [<span class="dv">1</span>,<span class="dv">1</span>], <span class="st">&quot;pipes&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">2</span>},</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;示例 3: 管道太贵各自打井&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;wells&quot;</span>: [<span class="dv">1</span>,<span class="dv">5</span>], <span class="st">&quot;pipes&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">10</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">6</span>},</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;极限: 只有1个房子&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">1</span>, <span class="st">&quot;wells&quot;</span>: [<span class="dv">10</span>], <span class="st">&quot;pipes&quot;</span>: [], <span class="st">&quot;expected&quot;</span>: <span class="dv">10</span>},</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;管道比打井贵很多&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">4</span>, <span class="st">&quot;wells&quot;</span>: [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>], <span class="st">&quot;pipes&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">100</span>],[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">100</span>],[<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">100</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">4</span>},</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;一口神井养活全村&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">4</span>, <span class="st">&quot;wells&quot;</span>: [<span class="dv">1</span>,<span class="dv">100</span>,<span class="dv">100</span>,<span class="dv">100</span>], <span class="st">&quot;pipes&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">4</span>},</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;含多余废弃管道 (闭环)&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">3</span>, <span class="st">&quot;wells&quot;</span>: [<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>], <span class="st">&quot;pipes&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>],[<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">10</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">4</span>}, <span class="co"># 1井(2)+管(1)+管(1)</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;不连通的子图只能打多口井&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">4</span>, <span class="st">&quot;wells&quot;</span>: [<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>], <span class="st">&quot;pipes&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">1</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">12</span>}, <span class="co"># 1井(5)+1-2(1), 3井(5)+3-4(1)</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;平行管道取最小&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;wells&quot;</span>: [<span class="dv">10</span>,<span class="dv">10</span>], <span class="st">&quot;pipes&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>],[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">8</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">11</span>}, <span class="co"># 1井(10) + 最便宜管道(1)</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;管道免费&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">3</span>, <span class="st">&quot;wells&quot;</span>: [<span class="dv">100</span>,<span class="dv">200</span>,<span class="dv">300</span>], <span class="st">&quot;pipes&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>],[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">0</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">100</span>}, <span class="co"># 1井(100) + 管(0) + 管(0)</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;线性长村落接力传递&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">5</span>, <span class="st">&quot;wells&quot;</span>: [<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>], <span class="st">&quot;pipes&quot;</span>: [[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>],[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>],[<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">1</span>],[<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">2</span>]], <span class="st">&quot;expected&quot;</span>: <span class="dv">7</span>} <span class="co"># 井(1)+管和(6)</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    passed <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;ID&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;结果&#39;</span><span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;预期&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;Kruskal&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;Prim&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;描述&#39;</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tc <span class="kw">in</span> <span class="bu">enumerate</span>(test_cases):</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        actual_1 <span class="op">=</span> func1(tc[<span class="st">&quot;n&quot;</span>], tc[<span class="st">&quot;wells&quot;</span>], tc[<span class="st">&quot;pipes&quot;</span>])</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        actual_2 <span class="op">=</span> func2(tc[<span class="st">&quot;n&quot;</span>], tc[<span class="st">&quot;wells&quot;</span>], tc[<span class="st">&quot;pipes&quot;</span>])</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        is_pass <span class="op">=</span> actual_1 <span class="op">==</span> actual_2 <span class="op">==</span> tc[<span class="st">&quot;expected&quot;</span>]</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">&quot;✅ PASS&quot;</span> <span class="cf">if</span> is_pass <span class="cf">else</span> <span class="st">&quot;❌ FAIL&quot;</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_pass:</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>            passed <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>status<span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;expected&#39;</span>]<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>actual_1<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>actual_2<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;desc&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;测试总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 运行测试</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>test_1168(Solution1168().minCostToSupplyWater_Kruskal, Solution1168().minCostToSupplyWater_Prim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>ID   | 结果     | 预期   | Kruskal | Prim | 描述
+-----------------------------------------------------------------
+1    | ✅ PASS | 3    | 3    | 3    | 示例 1: 1打井, 连2连3
+2    | ✅ PASS | 2    | 2    | 2    | 示例 2: 方案等价
+3    | ✅ PASS | 6    | 6    | 6    | 示例 3: 管道太贵各自打井
+4    | ✅ PASS | 10   | 10   | 10   | 极限: 只有1个房子
+5    | ✅ PASS | 4    | 4    | 4    | 管道比打井贵很多
+6    | ✅ PASS | 4    | 4    | 4    | 一口神井养活全村
+7    | ✅ PASS | 4    | 4    | 4    | 含多余废弃管道 (闭环)
+8    | ✅ PASS | 12   | 12   | 12   | 不连通的子图只能打多口井
+9    | ✅ PASS | 11   | 11   | 11   | 平行管道取最小
+10   | ✅ PASS | 100  | 100  | 100  | 管道免费
+11   | ✅ PASS | 7    | 7    | 7    | 线性长村落接力传递
+-----------------------------------------------------------------
+测试总结: 通过 11/11</code></pre>
+</div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -2662,11 +2944,20 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>假设房子数量为 <span class="math inline">\(N\)</span>，管道数量为 <span class="math inline">\(M\)</span>。转化后，总节点数 <span class="math inline">\(V = N + 1\)</span>，总边数 <span class="math inline">\(E = N + M\)</span>。 * <strong>Kruskal 算法</strong>： - <strong>时间复杂度</strong>：<span class="math inline">\(O(E \log E)\)</span>。瓶颈在于对所有边进行排序。 - <strong>空间复杂度</strong>：<span class="math inline">\(O(V + E)\)</span>。需要存储边集以及并查集的 <code>parent</code> 数组。 * <strong>Prim 算法</strong>： - <strong>时间复杂度</strong>：<span class="math inline">\(O(E \log V)\)</span>。每条边最多入堆出堆一次。 - <strong>空间复杂度</strong>：<span class="math inline">\(O(V + E)\)</span>。需要存储邻接表以及最小堆。</p>
+<p>假设房子数量为 <span class="math inline">\(N\)</span>，管道数量为 <span class="math inline">\(M\)</span>。转化后，总节点数 <span class="math inline">\(V = N + 1\)</span>，总边数 <span class="math inline">\(E = N + M\)</span>。</p>
+<ul>
+<li><strong>Kruskal 算法</strong>：
+<ul>
+<li><strong>时间复杂度</strong>：<span class="math inline">\(O(E \log E)\)</span>。瓶颈在于对所有边进行排序。</li>
+<li><strong>空间复杂度</strong>：<span class="math inline">\(O(V + E)\)</span>。需要存储边集以及并查集的 <code>parent</code> 数组。</li>
+</ul></li>
+<li><strong>Prim 算法</strong>：
+<ul>
+<li><strong>时间复杂度</strong>：<span class="math inline">\(O(E \log V)\)</span>。每条边最多入堆出堆一次。</li>
+<li><strong>空间复杂度</strong>：<span class="math inline">\(O(V + E)\)</span>。需要存储邻接表以及最小堆。</li>
+</ul></li>
+</ul>
 </div>
-</div>
-<div id="95fe0d1a1c208e65" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 
