@@ -2373,7 +2373,7 @@ window.Quarto = {
 </header>
 
 
-<div id="initial_id" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-25T05:15:56.438324Z&quot;,&quot;start_time&quot;:&quot;2026-02-25T05:15:56.418813Z&quot;}}" data-execution_count="9">
+<div id="initial_id" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:27.192536700Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:27.181136300Z&quot;}}" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> deque</span>
@@ -2415,7 +2415,7 @@ window.Quarto = {
 </ul>
 </div>
 </div>
-<div id="25e8194f05607bb4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-25T03:24:52.880737Z&quot;,&quot;start_time&quot;:&quot;2026-02-25T03:24:52.845385Z&quot;}}" data-execution_count="3">
+<div id="25e8194f05607bb4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:35.374749600Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:35.360886900Z&quot;}}" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution111:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> minDepth(<span class="va">self</span>, root: Optional[TreeNode]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> root:</span>
@@ -2426,7 +2426,7 @@ window.Quarto = {
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">self</span>.minDepth(root.left) <span class="op">+</span> <span class="dv">1</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">min</span>(<span class="va">self</span>.minDepth(root.left), <span class="va">self</span>.minDepth(root.right)) <span class="op">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="746faa81fe741390" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-25T03:25:03.409513Z&quot;,&quot;start_time&quot;:&quot;2026-02-25T03:25:03.373007Z&quot;}}" data-execution_count="4">
+<div id="746faa81fe741390" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:35.928627200Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:35.884101Z&quot;}}" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_tree(data):</span>
@@ -2584,7 +2584,7 @@ window.Quarto = {
 </ul>
 </div>
 </div>
-<div id="fcd0baa334350646" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-25T04:29:54.139359Z&quot;,&quot;start_time&quot;:&quot;2026-02-25T04:29:54.095859Z&quot;}}" data-execution_count="5">
+<div id="fcd0baa334350646" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:38.121833Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:38.107899500Z&quot;}}" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution112:</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> hasPathSum(<span class="va">self</span>, root: Optional[TreeNode], targetSum: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> root:  <span class="co"># 走到空地了</span></span>
@@ -2594,7 +2594,7 @@ window.Quarto = {
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        remain <span class="op">=</span> targetSum <span class="op">-</span> root.val  <span class="co"># 还没到终点，继续往下走（递归）</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.hasPathSum(root.left, remain) <span class="kw">or</span> <span class="va">self</span>.hasPathSum(root.right, remain)  <span class="co"># 拿着剩下的任务，分头行动</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="5413c3736964801d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-25T04:30:20.730023Z&quot;,&quot;start_time&quot;:&quot;2026-02-25T04:30:20.681078Z&quot;}}" data-execution_count="6">
+<div id="5413c3736964801d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:38.904622500Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:38.871099700Z&quot;}}" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_112(func):</span>
@@ -2617,7 +2617,7 @@ window.Quarto = {
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_pass: passed <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>status<span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span><span class="bu">str</span>(tc[<span class="st">&#39;expected&#39;</span>])<span class="sc">:&lt;5}</span><span class="ss"> | </span><span class="sc">{</span><span class="bu">str</span>(actual)<span class="sc">:&lt;5}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;desc&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;测试总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 运行测试</span></span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>test_112(Solution112().hasPathSum)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2631,7 +2631,7 @@ window.Quarto = {
 4    | ✅ PASS | False | False | 空树
 5    | ✅ PASS | False | False | 根节点不是叶子
 -----------------------------------------------------------------
-总结: 通过 5/5</code></pre>
+测试总结: 通过 5/5</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -2719,7 +2719,7 @@ window.Quarto = {
 </ul>
 </div>
 </div>
-<div id="1d15d14a6d00fc48" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-25T05:10:03.656111Z&quot;,&quot;start_time&quot;:&quot;2026-02-25T05:10:03.639995Z&quot;}}" data-execution_count="7">
+<div id="1d15d14a6d00fc48" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:41.455366900Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:41.441715100Z&quot;}}" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution226:</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> invertTree(<span class="va">self</span>, root: Optional[TreeNode]) <span class="op">-&gt;</span> Optional[TreeNode]:</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> root:  <span class="co"># 如果是空节点，直接返回</span></span>
@@ -2729,7 +2729,7 @@ window.Quarto = {
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.invertTree(root.right)</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> root</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a5bf622544d0365d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-25T05:10:55.926179Z&quot;,&quot;start_time&quot;:&quot;2026-02-25T05:10:55.894961Z&quot;}}" data-execution_count="8">
+<div id="a5bf622544d0365d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:48.760351300Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:48.710219100Z&quot;}}" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_226(func):</span>
@@ -2767,7 +2767,7 @@ window.Quarto = {
 <span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_pass: passed <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>status<span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;desc&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
 <span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">40</span>)</span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;测试总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
 <span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 运行测试</span></span>
 <span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>test_226(Solution226().invertTree)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2780,7 +2780,7 @@ window.Quarto = {
 3    | ✅ PASS | 只有左孩子
 4    | ✅ PASS | 空树
 ----------------------------------------
-总结: 通过 4/4</code></pre>
+测试总结: 通过 4/4</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
