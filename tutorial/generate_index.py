@@ -4,7 +4,7 @@ import os
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 # 强制把 index.html 生成在 tutorial 文件夹内
 OUTPUT_FILE = os.path.join(CURRENT_DIR, "index.html")
-TITLE = "算法笔记库"
+TITLE = "小姚の算法笔记库"
 
 
 def generate_html():
