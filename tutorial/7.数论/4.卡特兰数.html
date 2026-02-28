@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>深度优先搜索 (DFS)——树型搜索</title>
+<title>数论——卡特兰数</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -2346,17 +2346,16 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#题目-111二叉树的最小深度" id="toc-题目-111二叉树的最小深度" class="nav-link active" data-scroll-target="#题目-111二叉树的最小深度">📝 题目 111：二叉树的最小深度</a></li>
-  <li><a href="#题目-112路径总和" id="toc-题目-112路径总和" class="nav-link" data-scroll-target="#题目-112路径总和">📝 题目 112：路径总和</a></li>
-  <li><a href="#题目-226翻转二叉树" id="toc-题目-226翻转二叉树" class="nav-link" data-scroll-target="#题目-226翻转二叉树">📝 题目 226：翻转二叉树</a></li>
+  <li><a href="#题目-96不同的二叉搜索树" id="toc-题目-96不同的二叉搜索树" class="nav-link active" data-scroll-target="#题目-96不同的二叉搜索树">📝 题目 96：不同的二叉搜索树</a></li>
+  <li><a href="#题目-1259不相交的握手" id="toc-题目-1259不相交的握手" class="nav-link" data-scroll-target="#题目-1259不相交的握手">📝 题目 1259：不相交的握手</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="10-1.树型搜索.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="14-4.卡特兰数.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">深度优先搜索 (DFS)——树型搜索</h1>
+<h1 class="title">数论——卡特兰数</h1>
 </div>
 
 
@@ -2373,122 +2372,112 @@ window.Quarto = {
 </header>
 
 
-<div id="initial_id" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:27.192536700Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:27.181136300Z&quot;}}" data-execution_count="1">
+<div id="initial_id" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-28T15:34:15.619409Z&quot;,&quot;start_time&quot;:&quot;2026-02-28T15:34:15.603472Z&quot;}}" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> deque</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Optional</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TreeNode:</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, val: <span class="bu">int</span> <span class="op">=</span> <span class="dv">0</span>, left: <span class="st">&#39;TreeNode&#39;</span> <span class="op">=</span> <span class="va">None</span>, right: <span class="st">&#39;TreeNode&#39;</span> <span class="op">=</span> <span class="va">None</span>):</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val <span class="op">=</span> val</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.left <span class="op">=</span> left</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.right <span class="op">=</span> right</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> comb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<section id="题目-111二叉树的最小深度" class="level2">
-<h2 class="anchored" data-anchor-id="题目-111二叉树的最小深度">📝 题目 111：二叉树的最小深度</h2>
+<section id="题目-96不同的二叉搜索树" class="level2">
+<h2 class="anchored" data-anchor-id="题目-96不同的二叉搜索树">📝 题目 96：不同的二叉搜索树</h2>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>题目要求
+<span class="screen-reader-only">Caution</span>📖 题目描述
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>描述</strong>： 给定一个二叉树，找出其最小深度。 <strong>最小深度</strong>是从根节点到最近 <strong>叶子节点</strong> 的最短路径上的节点数量。 - <strong>注意</strong>：叶子节点是指没有左孩子，且没有右孩子的节点。</p>
-<p><strong>输入输出示例</strong>：</p>
+<p>给你一个整数 <code>n</code> ，求恰由 <code>n</code> 个节点组成且节点值从 <code>1</code> 到 <code>n</code> 互不相同的 <strong>二叉搜索树 (BST)</strong> 有多少种？返回满足题意的二叉搜索树的种数。</p>
+<p><strong>输入输出示例 </strong>：</p>
 <ul>
-<li><strong>示例 1</strong>：
+<li><strong>示例 1 (单节点)</strong>：
 <ul>
-<li><strong>输入</strong>：<code>root = [3, 9, 20, None, None, 15, 7]</code></li>
+<li><strong>输入</strong>：<code>n = 1</code></li>
+<li><strong>输出</strong>：<code>1</code></li>
+<li><strong>解释</strong>：只有根节点 1 这一种树。</li>
+</ul></li>
+<li><strong>示例 2 (两个节点)</strong>：
+<ul>
+<li><strong>输入</strong>：<code>n = 2</code></li>
 <li><strong>输出</strong>：<code>2</code></li>
-<li><strong>解释</strong>：根节点 3 到左侧叶子节点 9 的路径长度为 2，这是最短的。</li>
+<li><strong>解释</strong>：
+<ol type="1">
+<li>1 是根，2 是右子节点。</li>
+<li>2 是根，1 是左子节点。</li>
+</ol></li>
 </ul></li>
-<li><strong>示例 2</strong>：
+<li><strong>示例 3 (三个节点 - 经典面试盘)</strong>：
 <ul>
-<li><strong>输入</strong>：<code>root = [2, None, 3, None, 4, None, 5, None, 6]</code></li>
+<li><strong>输入</strong>：<code>n = 3</code></li>
 <li><strong>输出</strong>：<code>5</code></li>
-<li><strong>解释</strong>：这是一棵极其不平衡的树。虽然根节点 2 的左边是空的，但因为 2 还有右孩子，所以它不是叶子。你必须一直走到最底层的 6 才是叶子节点。</li>
+</ul></li>
+<li><strong>示例 4 (四个节点)</strong>：
+<ul>
+<li><strong>输入</strong>：<code>n = 4</code></li>
+<li><strong>输出</strong>：<code>14</code></li>
+</ul></li>
+<li><strong>示例 5 (五个节点)</strong>：
+<ul>
+<li><strong>输入</strong>：<code>n = 5</code></li>
+<li><strong>输出</strong>：<code>42</code></li>
 </ul></li>
 </ul>
+<p><strong>⚠️ 数据范围限制</strong>： <code>1 &lt;= n &lt;= 19</code> <em>(提示：因为卡特兰数增长极其恐怖，<span class="math inline">\(n=19\)</span> 时结果已经高达 17 亿多，所以 LeetCode 把数据范围卡在了 19，保证可以用普通的 32/64 位整数存下，完全不需要取模！)</em></p>
 </div>
 </div>
-<div id="25e8194f05607bb4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:35.374749600Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:35.360886900Z&quot;}}" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution111:</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> minDepth(<span class="va">self</span>, root: Optional[TreeNode]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> root:</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">0</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> root.left <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">self</span>.minDepth(root.right) <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> root.right <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">self</span>.minDepth(root.left) <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">min</span>(<span class="va">self</span>.minDepth(root.left), <span class="va">self</span>.minDepth(root.right)) <span class="op">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c1303f898e9e419a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-28T15:36:01.224416Z&quot;,&quot;start_time&quot;:&quot;2026-02-28T15:36:01.215362Z&quot;}}" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution96:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> numTrees(<span class="va">self</span>, n: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> comb(<span class="dv">2</span> <span class="op">*</span> n, n) <span class="op">-</span> comb(<span class="dv">2</span> <span class="op">*</span> n, n<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="746faa81fe741390" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:35.928627200Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:35.884101Z&quot;}}" data-execution_count="3">
+<div id="34e73540a278f4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-28T15:37:07.427206Z&quot;,&quot;start_time&quot;:&quot;2026-02-28T15:37:07.387967Z&quot;}}" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_tree(data):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;将 LeetCode 格式的列表转换为二叉树对象&quot;&quot;&quot;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> data: <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    root <span class="op">=</span> TreeNode(data[<span class="dv">0</span>])</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    queue <span class="op">=</span> deque([root])</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> queue <span class="kw">and</span> i <span class="op">&lt;</span> <span class="bu">len</span>(data):</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        curr <span class="op">=</span> queue.popleft()</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">&lt;</span> <span class="bu">len</span>(data) <span class="kw">and</span> data[i] <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            curr.left <span class="op">=</span> TreeNode(data[i])</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            queue.append(curr.left)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">&lt;</span> <span class="bu">len</span>(data) <span class="kw">and</span> data[i] <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            curr.right <span class="op">=</span> TreeNode(data[i])</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            queue.append(curr.right)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> root</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_111(func):</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    test_cases <span class="op">=</span> [</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">3</span>, <span class="dv">9</span>, <span class="dv">20</span>, <span class="va">None</span>, <span class="va">None</span>, <span class="dv">15</span>, <span class="dv">7</span>], <span class="st">&quot;expected&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;平衡树（最短在左）&quot;</span>},</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">2</span>, <span class="va">None</span>, <span class="dv">3</span>, <span class="va">None</span>, <span class="dv">4</span>, <span class="va">None</span>, <span class="dv">5</span>, <span class="va">None</span>, <span class="dv">6</span>], <span class="st">&quot;expected&quot;</span>: <span class="dv">5</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;右斜树（陷阱测试）&quot;</span>},</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="va">None</span>, <span class="dv">3</span>, <span class="va">None</span>, <span class="dv">4</span>, <span class="va">None</span>, <span class="dv">5</span>], <span class="st">&quot;expected&quot;</span>: <span class="dv">5</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;左斜树（陷阱测试）&quot;</span>},</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&quot;expected&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;简单满二叉树&quot;</span>},</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [], <span class="st">&quot;expected&quot;</span>: <span class="dv">0</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;空树测试&quot;</span>},</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">1</span>], <span class="st">&quot;expected&quot;</span>: <span class="dv">1</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;单节点测试&quot;</span>},</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="va">None</span>], <span class="st">&quot;expected&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;根节点只有左孩子&quot;</span>},</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">1</span>, <span class="va">None</span>, <span class="dv">2</span>], <span class="st">&quot;expected&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;根节点只有右孩子&quot;</span>}</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    passed <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;ID&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;结果&#39;</span><span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;预期&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;实际&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;描述&#39;</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">60</span>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tc <span class="kw">in</span> <span class="bu">enumerate</span>(test_cases):</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        root <span class="op">=</span> build_tree(tc[<span class="st">&quot;input&quot;</span>]) <span class="co"># 使用之前定义的层序建树函数</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        actual <span class="op">=</span> func(root)</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        is_pass <span class="op">=</span> actual <span class="op">==</span> tc[<span class="st">&quot;expected&quot;</span>]</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">&quot;✅ PASS&quot;</span> <span class="cf">if</span> is_pass <span class="cf">else</span> <span class="st">&quot;❌ FAIL&quot;</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_pass: passed <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>status<span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;expected&#39;</span>]<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>actual<span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;desc&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">60</span>)</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;测试总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># 运行测试</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>test_111(Solution111().minDepth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_96(func):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    test_cases <span class="op">=</span> [</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;单节点&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">1</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">1</span>},</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;两个节点&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">2</span>},</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;经典面试盘: 3个节点&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">3</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">5</span>},</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;4个节点&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">4</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">14</span>},</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;5个节点&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">5</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">42</span>},</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;稍微变大: 10&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">10</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">16796</span>},</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;极限 Boss: 19&quot;</span>, <span class="st">&quot;n&quot;</span>: <span class="dv">19</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">1767263190</span>} <span class="co"># 17 亿！不用数学公式极容易超时</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    passed <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;ID&#39;</span><span class="sc">:&lt;3}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;结果&#39;</span><span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;预期&#39;</span><span class="sc">:&lt;12}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;实际&#39;</span><span class="sc">:&lt;12}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;描述&#39;</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">70</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tc <span class="kw">in</span> <span class="bu">enumerate</span>(test_cases):</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        actual <span class="op">=</span> func(tc[<span class="st">&quot;n&quot;</span>])</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        is_pass <span class="op">=</span> actual <span class="op">==</span> tc[<span class="st">&quot;expected&quot;</span>]</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">&quot;✅ PASS&quot;</span> <span class="cf">if</span> is_pass <span class="cf">else</span> <span class="st">&quot;❌ FAIL&quot;</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_pass:</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            passed <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">:&lt;3}</span><span class="ss"> | </span><span class="sc">{</span>status<span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;expected&#39;</span>]<span class="sc">:&lt;12}</span><span class="ss"> | </span><span class="sc">{</span>actual<span class="sc">:&lt;12}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;desc&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">70</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;测试总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 运行测试</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>test_96(Solution96().numTrees)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>ID   | 结果     | 预期   | 实际   | 描述
-------------------------------------------------------------
-1    | ✅ PASS | 2    | 2    | 平衡树（最短在左）
-2    | ✅ PASS | 5    | 5    | 右斜树（陷阱测试）
-3    | ✅ PASS | 5    | 5    | 左斜树（陷阱测试）
-4    | ✅ PASS | 2    | 2    | 简单满二叉树
-5    | ✅ PASS | 0    | 0    | 空树测试
-6    | ✅ PASS | 1    | 1    | 单节点测试
-7    | ✅ PASS | 2    | 2    | 根节点只有左孩子
-8    | ✅ PASS | 2    | 2    | 根节点只有右孩子
-------------------------------------------------------------
-测试总结: 通过 8/8</code></pre>
+<pre><code>ID  | 结果     | 预期           | 实际           | 描述
+----------------------------------------------------------------------
+1   | ✅ PASS | 1            | 1            | 单节点
+2   | ✅ PASS | 2            | 2            | 两个节点
+3   | ✅ PASS | 5            | 5            | 经典面试盘: 3个节点
+4   | ✅ PASS | 14           | 14           | 4个节点
+5   | ✅ PASS | 42           | 42           | 5个节点
+6   | ✅ PASS | 16796        | 16796        | 稍微变大: 10
+7   | ✅ PASS | 1767263190   | 1767263190   | 极限 Boss: 19
+----------------------------------------------------------------------
+测试总结: 通过 7/7</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -2501,39 +2490,9 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>这道题最容易犯的错误是直接套用最大深度的 <code>min(left, right) + 1</code>。我们需要通过分类讨论来处理那些“只有一条腿”的非叶子节点。</p>
-<ol type="1">
-<li><strong>递归基准 (Base Case)</strong>：
-<ul>
-<li><code>if not root: return 0</code> (空节点深度为 0)。</li>
-</ul></li>
-<li><strong>核心递归逻辑（关键差异点）</strong>：
-<ul>
-<li><strong>情况 A：左子树为空，右子树不为空</strong>
-<ul>
-<li>此时根节点不是叶子。最小深度必须在右边产生。</li>
-<li><strong>动作</strong>：返回 <code>self.minDepth(root.right) + 1</code>。</li>
-</ul></li>
-<li><strong>情况 B：右子树为空，左子树不为空</strong>
-<ul>
-<li>此时根节点不是叶子。最小深度必须在左边产生。</li>
-<li><strong>动作</strong>：返回 <code>self.minDepth(root.left) + 1</code>。</li>
-</ul></li>
-<li><strong>情况 C：左右子树都不为空</strong>
-<ul>
-<li>此时两边都有路，我们才真正需要对比哪条路更短。</li>
-<li><strong>动作</strong>：返回 <code>min(self.minDepth(root.left), self.minDepth(root.right)) + 1</code>。</li>
-</ul></li>
-<li><strong>情况 D：左右子树都为空（叶子节点）</strong>
-<ul>
-<li>会触发前两个判断之一或直接计算，返回 <code>0 + 1 = 1</code>。</li>
-</ul></li>
-</ul></li>
-<li><strong>避坑指南</strong>：
-<ul>
-<li>记住：如果一个节点只有一个孩子，它<strong>不是叶子节点</strong>。你不能取它那个空孩子（深度0）作为最小值，否则你会得到错误的答案 1。</li>
-</ul></li>
-</ol>
+<p>在传统的动态规划解法中，这道题的思路是：遍历 <span class="math inline">\(1\)</span> 到 <span class="math inline">\(n\)</span> 中的每一个数 <span class="math inline">\(i\)</span> 作为树的根节点。那么左子树由 <span class="math inline">\(i-1\)</span> 个节点组成，右子树由 <span class="math inline">\(n-i\)</span> 个节点组成。 总方案数 <span class="math inline">\(G(n) = \sum_{i=1}^{n} G(i-1) \times G(n-i)\)</span>。</p>
+<p>懂行的数学家一眼就能看出来，这个递推公式<strong>正是卡特兰数 (Catalan Number) 的标准定义式</strong>！ 既然它本质上就是求第 <span class="math inline">\(n\)</span> 个卡特兰数，我们完全可以抛弃时间复杂度为 <span class="math inline">\(O(N^2)\)</span> 的动态规划，直接祭出卡特兰数的通项公式： <span class="math display">\[C_n = \binom{2n}{n} - \binom{2n}{n-1}\]</span></p>
+<p>结合 Python 标准库中极其高效的 <code>math.comb</code>，这道题瞬间从“代码实现题”变成了“数学常识题”。</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -2547,240 +2506,108 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>时间复杂度</strong>：<span class="math inline">\(O(N)\)</span>。其中 <span class="math inline">\(N\)</span> 是二叉树中的节点个数，每个节点仅被访问一次。</li>
-<li><strong>空间复杂度</strong>：<span class="math inline">\(O(H)\)</span>。其中 <span class="math inline">\(H\)</span> 是树的高度。在最坏情况下（树退化成链表），空间复杂度为 <span class="math inline">\(O(N)\)</span>；在平衡树情况下为 <span class="math inline">\(O(\log N)\)</span>。</li>
+<li><strong>时间复杂度</strong>：<span class="math inline">\(O(N)\)</span>。<code>math.comb(2n, n)</code> 在底层的 C 语言实现中，计算组合数只需要执行大约 <span class="math inline">\(N\)</span> 次乘除法操作。比起 DP 的 <span class="math inline">\(O(N^2)\)</span> 属于降维打击。</li>
+<li><strong>空间复杂度</strong>：<span class="math inline">\(O(1)\)</span>。没有任何多余的数组开销，只需要几个常数级别的变量存放计算结果，远胜于 DP 需要开辟长度为 <span class="math inline">\(N\)</span> 的数组。</li>
 </ul>
 </div>
 </div>
 </section>
-<section id="题目-112路径总和" class="level2">
-<h2 class="anchored" data-anchor-id="题目-112路径总和">📝 题目 112：路径总和</h2>
+<section id="题目-1259不相交的握手" class="level2">
+<h2 class="anchored" data-anchor-id="题目-1259不相交的握手">📝 题目 1259：不相交的握手</h2>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>题目要求
+<span class="screen-reader-only">Caution</span>📖 题目描述
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>描述</strong>： 给你二叉树的根节点 <code>root</code> 和一个表示目标和的整数 <code>targetSum</code> 。 判断该树中是否存在 <strong>根节点到叶子节点</strong> 的路径，这条路径上所有节点值相加等于目标和 <code>targetSum</code> 。</p>
-<p><strong>注意</strong>： - <strong>叶子节点</strong> 是指没有左孩子且没有右孩子的节点。 - 路径必须从根节点开始，到叶子节点结束。</p>
+<p>偶数个人站成一个圆，总人数为 <code>num_people</code>。每个人与除自己外的一个人握手，所以总共会有 <code>num_people / 2</code> 次握手。 将这些人从 <code>0</code> 到 <code>num_people - 1</code> 按顺时针编号。</p>
+<p>请你返回所有握手方案的数量，要求：<strong>没有任何两人的握手线索在圆内交叉</strong>。 由于结果可能很大，请你返回答案对 <span class="math inline">\(10^9 + 7\)</span> 取余后的结果。</p>
 <p><strong>输入输出示例</strong>：</p>
 <ul>
 <li><strong>示例 1</strong>：
 <ul>
-<li><strong>输入</strong>：<code>root = [5,4,8,11,None,13,4,7,2,None,None,None,1], targetSum = 22</code></li>
-<li><strong>输出</strong>：<code>True</code></li>
-<li><strong>解释</strong>：存在路径 5 -&gt; 4 -&gt; 11 -&gt; 2，总和为 22。</li>
+<li><strong>输入</strong>：<code>num_people = 2</code></li>
+<li><strong>输出</strong>：<code>1</code></li>
+<li><strong>解释</strong>：只有两个人，只能互相握手，1 种方案。</li>
 </ul></li>
 <li><strong>示例 2</strong>：
 <ul>
-<li><strong>输入</strong>：<code>root = [1,2,3], targetSum = 5</code></li>
-<li><strong>输出</strong>：<code>False</code></li>
-<li><strong>解释</strong>：树中只有两条路径：1-&gt;2 (和为3) 和 1-&gt;3 (和为4)。没有和为 5 的路径。</li>
+<li><strong>输入</strong>：<code>num_people = 4</code></li>
+<li><strong>输出</strong>：<code>2</code></li>
+<li><strong>解释</strong>：
+<ul>
+<li>方案一：0和1握手，2和3握手。</li>
+<li>方案二：0和3握手，1和2握手。 <em>(注意：如果是0和2，1和3握手，两条线就会在圆心交叉，这是非法的！)</em></li>
 </ul></li>
-</ul>
-</div>
-</div>
-<div id="fcd0baa334350646" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:38.121833Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:38.107899500Z&quot;}}" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution112:</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> hasPathSum(<span class="va">self</span>, root: Optional[TreeNode], targetSum: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> root:  <span class="co"># 走到空地了</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> root.left <span class="kw">and</span> <span class="kw">not</span> root.right:  <span class="co"># 到达叶子节点</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> root.val <span class="op">==</span> targetSum</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        remain <span class="op">=</span> targetSum <span class="op">-</span> root.val  <span class="co"># 还没到终点，继续往下走（递归）</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.hasPathSum(root.left, remain) <span class="kw">or</span> <span class="va">self</span>.hasPathSum(root.right, remain)  <span class="co"># 拿着剩下的任务，分头行动</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="5413c3736964801d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:38.904622500Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:38.871099700Z&quot;}}" data-execution_count="5">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_112(func):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    test_cases <span class="op">=</span> [</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">3</span>], <span class="st">&quot;target&quot;</span>: <span class="dv">18</span>, <span class="st">&quot;expected&quot;</span>: <span class="va">True</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;3层小树存在路径&quot;</span>},</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">3</span>], <span class="st">&quot;target&quot;</span>: <span class="dv">22</span>, <span class="st">&quot;expected&quot;</span>: <span class="va">True</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;右侧路径 10-&gt;12&quot;</span>},</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">&quot;target&quot;</span>: <span class="dv">5</span>, <span class="st">&quot;expected&quot;</span>: <span class="va">False</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;路径和不匹配&quot;</span>},</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [], <span class="st">&quot;target&quot;</span>: <span class="dv">0</span>, <span class="st">&quot;expected&quot;</span>: <span class="va">False</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;空树&quot;</span>},</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">1</span>, <span class="dv">2</span>], <span class="st">&quot;target&quot;</span>: <span class="dv">1</span>, <span class="st">&quot;expected&quot;</span>: <span class="va">False</span>, <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;根节点不是叶子&quot;</span>}</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    passed <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;ID&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;结果&#39;</span><span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;预期&#39;</span><span class="sc">:&lt;5}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;实际&#39;</span><span class="sc">:&lt;5}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;描述&#39;</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tc <span class="kw">in</span> <span class="bu">enumerate</span>(test_cases):</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        root <span class="op">=</span> build_tree(tc[<span class="st">&quot;input&quot;</span>])</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        actual <span class="op">=</span> func(root, tc[<span class="st">&quot;target&quot;</span>])</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        is_pass <span class="op">=</span> actual <span class="op">==</span> tc[<span class="st">&quot;expected&quot;</span>]</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">&quot;✅ PASS&quot;</span> <span class="cf">if</span> is_pass <span class="cf">else</span> <span class="st">&quot;❌ FAIL&quot;</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_pass: passed <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>status<span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span><span class="bu">str</span>(tc[<span class="st">&#39;expected&#39;</span>])<span class="sc">:&lt;5}</span><span class="ss"> | </span><span class="sc">{</span><span class="bu">str</span>(actual)<span class="sc">:&lt;5}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;desc&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;测试总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 运行测试</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>test_112(Solution112().hasPathSum)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>ID   | 结果     | 预期    | 实际    | 描述
------------------------------------------------------------------
-1    | ✅ PASS | True  | True  | 3层小树存在路径
-2    | ✅ PASS | True  | True  | 右侧路径 10-&gt;12
-3    | ✅ PASS | False | False | 路径和不匹配
-4    | ✅ PASS | False | False | 空树
-5    | ✅ PASS | False | False | 根节点不是叶子
------------------------------------------------------------------
-测试总结: 通过 5/5</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>💡 思路讲解
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>与其在路径上不停地“加”值，不如反过来用“减”法，这样处理起来更清爽。</p>
-<ol type="1">
-<li><strong>任务下达（递归逻辑）</strong>：
-<ul>
-<li>根节点对孩子说：“我的目标是 <code>targetSum</code>，但我占用了 <code>root.val</code>。你们谁能在我剩下的值 <code>targetSum - root.val</code> 里找到凑成 0 的路径？”</li>
-</ul></li>
-<li><strong>递归基准 (Base Case)</strong>：
-<ul>
-<li><strong>空地</strong>：<code>if not root: return False</code>（没路了，任务失败）。</li>
-<li><strong>到达叶子节点（终点判定）</strong>：
-<ul>
-<li>如果当前节点是叶子（左右都为空），我们检查：它自己本身的值是否等于剩下的目标值？</li>
-<li><code>return root.val == targetSum</code></li>
-</ul></li>
-</ul></li>
-<li><strong>结果汇总</strong>：
-<ul>
-<li>只要左子树 <strong>或者</strong> 右子树中有一条路径能达成目标，就返回 <code>True</code>。</li>
-<li><code>return self.hasPathSum(root.left, targetSum - root.val) or self.hasPathSum(root.right, targetSum - root.val)</code></li>
-</ul></li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>💡 复杂度分析
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><strong>时间复杂度</strong>：<span class="math inline">\(O(N)\)</span>。每个节点访问一次。</li>
-<li><strong>空间复杂度</strong>：<span class="math inline">\(O(H)\)</span>。取决于树的高度，用于递归调用栈。</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="题目-226翻转二叉树" class="level2">
-<h2 class="anchored" data-anchor-id="题目-226翻转二叉树">📝 题目 226：翻转二叉树</h2>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Caution</span>题目要求
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>描述</strong>： 给你一棵二叉树的根节点 <code>root</code>，翻转这棵二叉树，并返回其根节点。</p>
-<p><strong>直观理解</strong>： 想象这棵树原本在照镜子，翻转后就是它在镜子里的样子。所有的左孩子变右孩子，右孩子变左孩子。</p>
-<p><strong>输入输出示例</strong>：</p>
-<ul>
-<li><strong>示例 1</strong>：
-<ul>
-<li><strong>输入</strong>：<code>root = [4, 2, 7, 1, 3, 6, 9]</code></li>
-<li><strong>输出</strong>：<code>[4, 7, 2, 9, 6, 3, 1]</code></li>
-<li><strong>说明</strong>：根节点 4 的左右孩子 (2, 7) 交换了位置，且它们底下的孙子节点也全部互相交换了位置。</li>
-</ul></li>
-<li><strong>示例 2</strong>：
-<ul>
-<li><strong>输入</strong>：<code>root = [2, 1, 3]</code></li>
-<li><strong>输出</strong>：<code>[2, 3, 1]</code></li>
 </ul></li>
 <li><strong>示例 3</strong>：
 <ul>
-<li><strong>输入</strong>：<code>root = []</code></li>
-<li><strong>输出</strong>：<code>[]</code></li>
+<li><strong>输入</strong>：<code>num_people = 6</code></li>
+<li><strong>输出</strong>：<code>5</code></li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div id="1d15d14a6d00fc48" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:41.455366900Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:41.441715100Z&quot;}}" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution226:</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> invertTree(<span class="va">self</span>, root: Optional[TreeNode]) <span class="op">-&gt;</span> Optional[TreeNode]:</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> root:  <span class="co"># 如果是空节点，直接返回</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        root.left, root.right <span class="op">=</span> root.right, root.left</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.invertTree(root.left)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.invertTree(root.right)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> root</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f3089cf7aa41d0c5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-28T15:47:37.729278Z&quot;,&quot;start_time&quot;:&quot;2026-02-28T15:47:37.712600Z&quot;}}" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Solution1259:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> numberOfWays(<span class="va">self</span>, numPeople: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (comb(numPeople, numPeople <span class="op">//</span> <span class="dv">2</span>) <span class="op">-</span> comb(numPeople, numPeople <span class="op">//</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span>)) <span class="op">%</span> (<span class="dv">10</span> <span class="op">**</span> <span class="dv">9</span> <span class="op">+</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a5bf622544d0365d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-27T01:14:48.760351300Z&quot;,&quot;start_time&quot;:&quot;2026-02-27T01:14:48.710219100Z&quot;}}" data-execution_count="8">
+<div id="77ab9cfca7737a5d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2026-02-28T15:51:05.269742Z&quot;,&quot;start_time&quot;:&quot;2026-02-28T15:51:05.242268Z&quot;}}" data-execution_count="23">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_226(func):</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    test_cases <span class="op">=</span> [</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>], <span class="st">&quot;expected&quot;</span>: [<span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">1</span>], <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;标准满二叉树&quot;</span>},</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>], <span class="st">&quot;expected&quot;</span>: [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>], <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;三节点树&quot;</span>},</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [<span class="dv">1</span>, <span class="dv">2</span>], <span class="st">&quot;expected&quot;</span>: [<span class="dv">1</span>, <span class="va">None</span>, <span class="dv">2</span>], <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;只有左孩子&quot;</span>},</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;input&quot;</span>: [], <span class="st">&quot;expected&quot;</span>: [], <span class="st">&quot;desc&quot;</span>: <span class="st">&quot;空树&quot;</span>}</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 辅助函数：将树转回数组格式方便对比</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> tree_to_list(root):</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> root: <span class="cf">return</span> []</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        res, q <span class="op">=</span> [], [root]</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> q:</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>            node <span class="op">=</span> q.pop(<span class="dv">0</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> node:</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                res.append(node.val)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                q.append(node.left)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                q.append(node.right)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>                res.append(<span class="va">None</span>)</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> res <span class="kw">and</span> res[<span class="op">-</span><span class="dv">1</span>] <span class="kw">is</span> <span class="va">None</span>: res.pop()</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> res</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    passed <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;ID&#39;</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;结果&#39;</span><span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;描述&#39;</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">40</span>)</span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tc <span class="kw">in</span> <span class="bu">enumerate</span>(test_cases):</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>        root <span class="op">=</span> build_tree(tc[<span class="st">&quot;input&quot;</span>])</span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>        actual_root <span class="op">=</span> func(root)</span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>        actual_list <span class="op">=</span> tree_to_list(actual_root)</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>        is_pass <span class="op">=</span> actual_list <span class="op">==</span> tc[<span class="st">&quot;expected&quot;</span>]</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">&quot;✅ PASS&quot;</span> <span class="cf">if</span> is_pass <span class="cf">else</span> <span class="st">&quot;❌ FAIL&quot;</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_pass: passed <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">:&lt;4}</span><span class="ss"> | </span><span class="sc">{</span>status<span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;desc&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">40</span>)</span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;测试总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 运行测试</span></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>test_226(Solution226().invertTree)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_1259(func):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    test_cases <span class="op">=</span> [</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;示例 1: 2人 (1对)&quot;</span>, <span class="st">&quot;numPeople&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">1</span>},</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;示例 2: 4人 (2对)&quot;</span>, <span class="st">&quot;numPeople&quot;</span>: <span class="dv">4</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">2</span>},</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;示例 3: 6人 (3对)&quot;</span>, <span class="st">&quot;numPeople&quot;</span>: <span class="dv">6</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">5</span>},</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;8人 (4对)&quot;</span>, <span class="st">&quot;numPeople&quot;</span>: <span class="dv">8</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">14</span>},</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;10人 (5对)&quot;</span>, <span class="st">&quot;numPeople&quot;</span>: <span class="dv">10</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">42</span>},</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;20人 (10对)&quot;</span>, <span class="st">&quot;numPeople&quot;</span>: <span class="dv">20</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">16796</span>},</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;50人 (25对)&quot;</span>, <span class="st">&quot;numPeople&quot;</span>: <span class="dv">50</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">946367425</span>},</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;中等规模: 100人&quot;</span>, <span class="st">&quot;numPeople&quot;</span>: <span class="dv">100</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">265470434</span>}, <span class="co"># 已经需要取模了</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;大规模：500人&quot;</span>, <span class="st">&quot;numPeople&quot;</span>: <span class="dv">500</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">217193473</span>},</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        {<span class="st">&quot;desc&quot;</span>: <span class="st">&quot;大厂极限压测: 1000人 (Hard 难度满级)&quot;</span>, <span class="st">&quot;numPeople&quot;</span>: <span class="dv">1000</span>, <span class="st">&quot;expected&quot;</span>: <span class="dv">591137401</span>}</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    passed <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;ID&#39;</span><span class="sc">:&lt;3}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;结果&#39;</span><span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;预期&#39;</span><span class="sc">:&lt;10}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;实际&#39;</span><span class="sc">:&lt;10}</span><span class="ss"> | </span><span class="sc">{</span><span class="st">&#39;描述&#39;</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tc <span class="kw">in</span> <span class="bu">enumerate</span>(test_cases):</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        actual <span class="op">=</span> func(tc[<span class="st">&quot;numPeople&quot;</span>])</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        is_pass <span class="op">=</span> actual <span class="op">==</span> tc[<span class="st">&quot;expected&quot;</span>]</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        status <span class="op">=</span> <span class="st">&quot;✅ PASS&quot;</span> <span class="cf">if</span> is_pass <span class="cf">else</span> <span class="st">&quot;❌ FAIL&quot;</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_pass:</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>            passed <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">:&lt;3}</span><span class="ss"> | </span><span class="sc">{</span>status<span class="sc">:&lt;6}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;expected&#39;</span>]<span class="sc">:&lt;10}</span><span class="ss"> | </span><span class="sc">{</span>actual<span class="sc">:&lt;10}</span><span class="ss"> | </span><span class="sc">{</span>tc[<span class="st">&#39;desc&#39;</span>]<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">65</span>)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;测试总结: 通过 </span><span class="sc">{</span>passed<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(test_cases)<span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 运行测试</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>test_1259(Solution1259().numberOfWays)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>ID   | 结果     | 描述
-----------------------------------------
-1    | ✅ PASS | 标准满二叉树
-2    | ✅ PASS | 三节点树
-3    | ✅ PASS | 只有左孩子
-4    | ✅ PASS | 空树
-----------------------------------------
-测试总结: 通过 4/4</code></pre>
+<pre><code>ID  | 结果     | 预期         | 实际         | 描述
+-----------------------------------------------------------------
+1   | ✅ PASS | 1          | 1          | 示例 1: 2人 (1对)
+2   | ✅ PASS | 2          | 2          | 示例 2: 4人 (2对)
+3   | ✅ PASS | 5          | 5          | 示例 3: 6人 (3对)
+4   | ✅ PASS | 14         | 14         | 8人 (4对)
+5   | ✅ PASS | 42         | 42         | 10人 (5对)
+6   | ✅ PASS | 16796      | 16796      | 20人 (10对)
+7   | ✅ PASS | 946367425  | 946367425  | 50人 (25对)
+8   | ✅ PASS | 265470434  | 265470434  | 中等规模: 100人
+9   | ✅ PASS | 217193473  | 217193473  | 大规模：500人
+10  | ✅ PASS | 591137401  | 591137401  | 大厂极限压测: 1000人 (Hard 难度满级)
+-----------------------------------------------------------------
+测试总结: 通过 10/10</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -2793,28 +2620,13 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>这道题的递归逻辑可以拆解为两步：<strong>“动自己的手”</strong>和<strong>“派孩子去干活”</strong>。</p>
+<p>这道题表面上是一道“圆桌连线”的几何题，但只要你试着去拆解它，就会发现它处处都在暗示卡特兰数。</p>
+<p><strong>核心推导过程：</strong></p>
 <ol type="1">
-<li><strong>递归基准情形 (Base Case)</strong>：
-<ul>
-<li>如果 <code>root</code> 是空的，直接返回 <code>None</code>。空地不需要翻转。</li>
-</ul></li>
-<li><strong>核心操作 (局部交换)</strong>：
-<ul>
-<li>想象你是一个节点（比如根节点 4）：</li>
-<li><strong>交换</strong>：把你左手拉着的 2 和右手拉着的 7 换一下位置。</li>
-<li>现在你手里变成了：左边是 7，右边是 2。</li>
-</ul></li>
-<li><strong>递归向下 (分发任务)</strong>：
-<ul>
-<li><strong>左边去翻转</strong>：指派左儿子 (7) 去翻转它自己那一支。</li>
-<li><strong>右边去翻转</strong>：指派右儿子 (2) 去翻转它自己那一支。</li>
-<li><strong>注意</strong>：不管你先交换还是先递归，最终只要保证每一个节点都把自己的左右孩子交换过一次，整棵树就翻转成功了。</li>
-</ul></li>
-<li><strong>结果汇报</strong>：
-<ul>
-<li>翻转完成后，把已经处理好的自己 (<code>root</code>) 返回给上一层。</li>
-</ul></li>
+<li><strong>确立基准与分割</strong>： 总共有 <code>2n</code> 个人（即 <span class="math inline">\(n\)</span> 对）。我们随便挑一个人作为基准，比如 <code>0</code> 号。 <code>0</code> 号必须找一个人握手。假设他找了 <code>k</code> 号握手。</li>
+<li><strong>不交叉的铁律 (奇偶性拦截)</strong>： 一旦 <code>0</code> 和 <code>k</code> 连线，整个圆桌就被这条线劈成了两半：左半边和右半边。 为了保证线绝对不交叉，左半边的人只能和左半边的人握手，右半边同理！ 这意味着：<strong>左半边和右半边的人数，都必须是偶数！</strong>（否则肯定有个单身狗要跨过中心线去握手，这就交叉了）。</li>
+<li><strong>推导递推公式</strong>： 假设左半边有 <code>2i</code> 个人（即 <span class="math inline">\(i\)</span> 对），那么右半边自然有 <code>2(n - 1 - i)</code> 个人（即 <span class="math inline">\(n - 1 - i\)</span> 对）。 左半边的握手方案数是 <span class="math inline">\(G(i)\)</span>，右半边的方案数是 <span class="math inline">\(G(n - 1 - i)\)</span>。 总方案数就是把所有的 <span class="math inline">\(i\)</span> 遍历一遍加起来： <span class="math display">\[G(n) = \sum_{i=0}^{n-1} G(i) \times G(n-1-i)\]</span></li>
+<li><strong>终极降维</strong>： 懂行的人看到这个递推公式，DNA 直接动了——<strong>这百分之百就是卡特兰数的标准定义式！</strong> 就像上一题“二叉搜索树的左右子树”一样！ 既然本质是求第 <span class="math inline">\(n\)</span> 个卡特兰数，我们直接抛弃 <span class="math inline">\(O(N^2)\)</span> 的动态规划，祭出终极减法公式： <span class="math display">\[C_n = \binom{2n}{n} - \binom{2n}{n-1}\]</span> 最后将结果对 <span class="math inline">\(10^9 + 7\)</span> 取模即可。</li>
 </ol>
 </div>
 </div>
@@ -2829,8 +2641,8 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>时间复杂度</strong>：<span class="math inline">\(O(N)\)</span>。树中每个节点都要“交换”一次，总共 <span class="math inline">\(N\)</span> 个节点。</li>
-<li><strong>空间复杂度</strong>：<span class="math inline">\(O(H)\)</span>。取决于树的高度，用于递归调用栈。最坏情况 <span class="math inline">\(O(N)\)</span>，平衡树 <span class="math inline">\(O(\log N)\)</span>。</li>
+<li><strong>时间复杂度</strong>：<span class="math inline">\(O(N)\)</span>。在 Python 中，<code>math.comb</code> 底层是用 C 语言优化过的循环，计算 <span class="math inline">\(\binom{2N}{N}\)</span> 大约需要 <span class="math inline">\(O(N)\)</span> 次乘除法。比起 DP 解法的 <span class="math inline">\(O(N^2)\)</span>，这是绝对的降维打击。</li>
+<li><strong>空间复杂度</strong>：<span class="math inline">\(O(1)\)</span>。我们没有开辟任何 dp 数组，只用了常数级别的变量来存放最后计算出的大整数。</li>
 </ul>
 </div>
 </div>
